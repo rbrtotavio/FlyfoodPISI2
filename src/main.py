@@ -15,13 +15,24 @@ def load_matrix(file_path: str) -> Tuple[Dict[str, Tuple[int, int]], Optional[Tu
     start: Optional[Tuple[int, int]] = None
 
     with open(file_path, 'r') as file:
-        rows, _ = map(int, file.readline().split())
-        for i, line in enumerate(file):
-            for j, cell in enumerate(line.split()):
+        rows, cols = map(int, file.readline().split())
+
+        i = 0
+        while i < rows:
+            line = file.readline().strip()
+            if not line:
+                break
+            
+            cells = line.split()
+            j = 0
+            while j < cols:
+                cell = cells[j]
                 if cell == 'R':
                     start = (i, j)
                 elif cell != '0':
                     points[cell] = (i, j)
+                j += 1
+            i += 1
 
     return points, start
 
