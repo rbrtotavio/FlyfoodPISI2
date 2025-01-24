@@ -1,12 +1,20 @@
 import itertools
+from typing import Dict, Tuple, Optional, List
 
-def load_matrix(file_path):
-    """Lê os pontos de interesse e o ponto inicial diretamente de um arquivo."""
-    points = {}
-    start = None
+def load_matrix(file_path: str) -> Tuple[Dict[str, Tuple[int, int]], Optional[Tuple[int, int]]]:
+    """Lê os pontos de interesse e o ponto inicial diretamente de um arquivo.
+    
+    Args:
+        file_path (str): Caminho para o arquivo contendo a matriz.
+        
+    Returns:
+        Tuple[Dict[str, Tuple[int, int]], Optional[Tuple[int, int]]]:
+        Um dicionario de pontos de interesse com suas coordenadas e a posição inicial, caso exista.
+    """
+    points: Dict[str, Tuple[int, int]] = {}
+    start: Optional[Tuple[int, int]] = None
 
     with open(file_path, 'r') as file:
-        rows, _ = map(int, file.readline().split())  
         for i, line in enumerate(file):
             for j, cell in enumerate(line.split()):
                 if cell == 'R':
@@ -16,27 +24,31 @@ def load_matrix(file_path):
 
     return points, start
 
-def dist_manhattan(p1, p2):
-    """Calcula a distância Manhattan entre dois pontos."""
+def dist_manhattan(p1: Tuple[int, int], p2: Tuple[int, int]) -> int:
+    """Calcula a distância Manhattan entre dois pontos.
+    
+    Args:
+        p1 (Tuple[int, int]): Coordenadas do primeiro ponto.
+        p2 (Tuple[int, int]): Coordenadas do segundo ponto.
+        
+    Returns:
+        int: A distância Manhattan entre os dois pontos.
+    """
     return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
 
-def calc_route_dist(route, points, start):
-    """Calcula a distância total de uma rota usando a distância Manhattan."""
-    dist = sum(
-        dist_manhattan(points[route[i - 1]], points[point])
-        for i, point in enumerate(route)
-        if i > 0
-    )
-    dist += dist_manhattan(start, points[route[0]])
-    dist += dist_manhattan(points[route[-1]], start)
-
-    return dist
-
-def find_best_route(points, start):
-    """Encontra a rota ótima usando força bruta com pequenas otimizações."""
-    deliveries = list(points.keys())
-    dist_min = float('inf')
-    best_route = None
+def find_best_route(points: Dict[str, Tuple[int, int]], start: Optional[Tuple[int, int]]) -> Tuple[Tuple[str], float | int]:
+    """Encontra a rota ótima usando força bruta com pequenas otimizações.
+    
+    Args:
+        points: Dict[str, Tuple[int, int]]: Dicionário de pontos dos pontos de interesse e suas coordenadas.
+        start: Optional[Tuple[int, int]]: Posição inicial
+    
+    Returns:
+        Tuple[Tuple[str], float | int]: Uma tupla contendo a ordem da rota e um numeral representando o custo da rota.
+    """
+    deliveries: List[str] = list(points.keys())
+    dist_min: float | int = float('inf')
+    best_route: Tuple[str] = None
 
     for perm in itertools.permutations(deliveries):
         dist = 0
