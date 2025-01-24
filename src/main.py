@@ -15,6 +15,7 @@ def load_matrix(file_path: str) -> Tuple[Dict[str, Tuple[int, int]], Optional[Tu
     start: Optional[Tuple[int, int]] = None
 
     with open(file_path, 'r') as file:
+        rows, _ = map(int, file.readline().split())
         for i, line in enumerate(file):
             for j, cell in enumerate(line.split()):
                 if cell == 'R':
