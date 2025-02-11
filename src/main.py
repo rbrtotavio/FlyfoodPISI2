@@ -79,7 +79,7 @@ def find_best_route(points: Dict[str, Tuple[int, int]], start: Optional[Tuple[in
     return best_route, dist_min
 
 if __name__ == "__main__":
-    file_path = "src/inputs/matrix.txt"
+    file_path = "src/inputs/4x5_matrix.txt"
     points, start = load_matrix(file_path)
 
     best_route, dist_min = find_best_route(points, start)
