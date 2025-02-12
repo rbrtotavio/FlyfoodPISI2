@@ -63,8 +63,12 @@ Distância mínima: 12
 - Implementar algoritmos mais eficientes para casos maiores, como
   - Algoritmo de Dijkstra
   - Algoritmos aproximados para o problema do caixeiro-viajante (TSP).
+  - Algoritmo Genético
 - Adicionar suporte para múltiplos drones.
 - Implementar uma interface gráfica para visualização das rotas.
+
+## Outros
+- [Apresentação em slides](https://www.canva.com/design/DAGc6vIOn8c/FcwysvUVlCbPgKFvCMGcTA/edit)
 
 ## Contribuições
 
